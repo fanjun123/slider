@@ -1,6 +1,6 @@
 <template>
 	<div class="tab_bar">
-		<ul @click="changeTab" class="flex scroll">
+		<ul @click="changeTab" class="flex scroll" ref='scroll'>
 			<div class='slider' :style="{left:sliderOffset+'px','width':width+'px'}"></div>
 			<li v-for='item in catList' :key='item.id' :data-id='item.id' :class="{active:id==item.id}">
 				{{item.name}}
@@ -16,32 +16,10 @@
 				sliderOffset: 10,
 				id: '',
 				width: '',
-				catList: [{
-					name: '菜单一',
-					id: '1'
-				}, {
-					name: '菜单二',
-					id: '2'
-				}, {
-					name: '菜单栏三',
-					id: '3'
-				}, {
-					name: '第四',
-					id: '4'
-				}, {
-					name: '菜单五',
-					id: '5'
-				}, {
-					name: '菜单六',
-					id: '6'
-				}, {
-					name: '菜单七',
-					id: '7'
-				}, {
-					name: '菜单八',
-					id: '8'
-				}, ],
 			}
+		},
+		props:{
+			catList:Array
 		},
 		mounted() {
 			this.width = 16 + this.catList[0].name.length * 12;
@@ -54,10 +32,11 @@
 					this.width = 16 + e.target.innerText.length * 12;
 					this.id = e.target.dataset.id;
 					this.scroll();
-				}
+					this.$emit('sliderClick',e.target.dataset.id)
+				}	
 			},
 			scroll(type) {
-				var scroll = document.getElementsByClassName('scroll')[0];
+				var scroll = this.$refs.scroll;
 				var distance = this.sliderOffset - scroll.scrollLeft;
 				var scrollWidth = 0; //可滚动的最大距离
 				this.catList.forEach((item, index) => {
@@ -121,12 +100,13 @@
 		margin-right: 10px;
 		-webkit-overflow-scrolling: touch;
 		overflow: scroll;
+		padding: .4rem 0;
 	}
 	
 	.tab_bar ul .slider {
 		width: 0.8rem;
 		position: absolute;
-		top: 1.7rem;
+		top: 2.1rem;
 		height: 2px;
 		transition: 0.5s left;
 		background-color: #fa7416;
