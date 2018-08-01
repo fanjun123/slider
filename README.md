@@ -1,5 +1,6 @@
 # slider
-
+#### 图片
+[gif]: https://gss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/c995d143ad4bd113d8b6b4f156afa40f4afb05fd.jpg
 > A Vue.js project
 
 ## Build Setup
